@@ -18,8 +18,14 @@ buildscript {
 allprojects {
     repositories {
         google()
+        maven { url 'https://www.jitpack.io'}
         jcenter()
     }
+}
+
+ext{
+    supportLibVersion = "27.1.1"
+    googleApiVersion = "15.0.1"
 }
 
 task clean(type: Delete) {
