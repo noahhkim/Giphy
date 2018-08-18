@@ -1,4 +1,4 @@
-package com.example.android.giffinder;
+package com.example.android.giffinder.ui;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.android.giffinder.R;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.android.giffinder.MainActivity.SEARCH_KEY;
+import static com.example.android.giffinder.ui.MainActivity.SEARCH_KEY;
 
 public class ResultsFragment extends Fragment {
     @BindView(R.id.search_results)

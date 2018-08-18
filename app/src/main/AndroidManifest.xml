@@ -13,8 +13,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name="com.example.android.giffinder.MainActivity"
+        android:theme="@style/AppTheme"
+        android:fullBackupContent="true">
+        <activity android:name="com.example.android.giffinder.ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,14 +23,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".GiphyService" />
         <provider android:name=".source.GifProvider"
             android:authorities="@string/content_authority"
             android:exported="false"
-            android:syncable="true">
+            android:syncable="true"/>
 
-        </provider>
+        <!-- SyncAdapter's dummy authentication service -->
+        <service android:name=".service.GiphyAuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
 
+        <service android:name=".service.GiphySyncService" />
     </application>
 
 </manifest>

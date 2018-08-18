@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import com.example.android.giffinder.source.GifContract.GifEntry;
 
 public class GifProvider extends ContentProvider {
+
     private GifDbHelper gifDbHelper;
     static final int GIFS = 100;
     static final int GIFS_WITH_ID = 101;
@@ -40,6 +41,9 @@ public class GifProvider extends ContentProvider {
                 null,
                 sortOrder
         );
+    }
+
+    public GifProvider() {
     }
 
     @Override

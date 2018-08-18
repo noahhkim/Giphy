@@ -8,7 +8,8 @@
     <!--host url-->
     <string name="host_url">api.giphy.com</string>
 
-    <!--content authority-->
+    <!-- SyncAdapter related -->
+    <string name="sync_account_type">giffinder.example.com</string>
     <string name="content_authority">com.example.android.giffinder</string>
 
 </resources>

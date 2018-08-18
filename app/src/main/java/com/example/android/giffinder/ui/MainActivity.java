@@ -1,4 +1,4 @@
-package com.example.android.giffinder;
+package com.example.android.giffinder.ui;
 
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.example.android.giffinder.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
