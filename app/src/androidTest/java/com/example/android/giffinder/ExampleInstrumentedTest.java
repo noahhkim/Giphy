@@ -1,4 +1,4 @@
-package com.example.android.giphy;
+package com.example.android.giffinder;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

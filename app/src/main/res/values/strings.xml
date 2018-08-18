@@ -1,5 +1,11 @@
 <resources>
-    <string name="app_name">Giphy</string>
+    <string name="app_name">Gif Finder</string>
     <string name="action_search">Search</string>
+
+    <!--API key-->
+    <string name="giphy_api_key">5BchL98nJWM1Tm7cqFMip4tLdO00paAc</string>
+
+    <!--host url-->
+    <string name="host_url">api.giphy.com</string>
 
 </resources>

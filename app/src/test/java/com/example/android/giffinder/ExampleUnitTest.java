@@ -1,4 +1,4 @@
-package com.example.android.giphy;
+package com.example.android.giffinder;
 
 import org.junit.Test;
 
