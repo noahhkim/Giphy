@@ -5,11 +5,12 @@
     <!--API key-->
     <string name="giphy_api_key">5BchL98nJWM1Tm7cqFMip4tLdO00paAc</string>
 
-    <!--host url-->
-    <string name="host_url">api.giphy.com</string>
 
     <!-- SyncAdapter related -->
     <string name="sync_account_type">giffinder.example.com</string>
     <string name="content_authority">com.example.android.giffinder</string>
+
+    <!-- Content Descriptions -->
+    <string name="gif_images">Gif Image</string>
 
 </resources>
