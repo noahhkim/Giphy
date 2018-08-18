@@ -8,4 +8,7 @@
     <!--host url-->
     <string name="host_url">api.giphy.com</string>
 
+    <!--content authority-->
+    <string name="content_authority">com.example.android.giffinder</string>
+
 </resources>

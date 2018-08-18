@@ -26,6 +26,8 @@ allprojects {
 ext{
     supportLibVersion = "27.1.1"
     googleApiVersion = "15.0.1"
+    retrofitVersion = "2.4.0"
+    butterknifeVersion = "8.8.1"
 }
 
 task clean(type: Delete) {

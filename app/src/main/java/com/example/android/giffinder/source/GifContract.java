@@ -1,6 +1,7 @@
 package com.example.android.giffinder.source;
 
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -17,10 +18,30 @@ public class GifContract {
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_GIFS;
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_GIFS;
+
+        // Table name
+        public static final String TABLE_NAME = "gifs";
+
+        // Column names
+        public static final String COLUMN_URL = "url";
+
+        public static final String[] COLUMNS = {
+                GifEntry.TABLE_NAME + "." + GifEntry._ID,
+        };
+
+        public static Uri buildGifUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static long getIdFromUri(Uri uri) {
+            return ContentUris.parseId(uri);
+        }
+
+        public static String[] getColumns() {
+            return COLUMNS.clone();
+        }
+
+        public static final int COL_ID = 0;
+        public static final int COL_URL = 1;
     }
-
-    // Table name
-    public static final String TABLE_NAME = "gifs";
-
-    // Column names
 }
