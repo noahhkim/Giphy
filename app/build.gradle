@@ -29,6 +29,9 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.butterknifeVersion}"
     implementation "com.github.bumptech.glide:glide:${rootProject.ext.glideVersion}"
     annotationProcessor "com.github.bumptech.glide:compiler:${rootProject.ext.glideVersion}"
+    implementation "android.arch.persistence.room:runtime:${rootProject.ext.archRoomVersion}"
+    annotationProcessor "android.arch.persistence.room:compiler:${rootProject.ext.archRoomVersion}"
+    implementation "android.arch.lifecycle:extensions:${rootProject.ext.archLifecycleVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

@@ -10,19 +10,19 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.android.giffinder.R;
+import com.example.android.giffinder.data.room.Gif;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GifAdapter extends RecyclerView.Adapter<GifAdapter.GifViewHolder>{
-    private List<String> imageUrlList;
+public class GifAdapter extends RecyclerView.Adapter<GifAdapter.GifViewHolder> {
+    private List<Gif> mGifs;
     private Context context;
 
-    public GifAdapter(Context context, List<String> imageUrlList) {
+    public GifAdapter(Context context) {
         this.context = context;
-        this.imageUrlList = imageUrlList;
     }
 
     @NonNull
@@ -34,15 +34,22 @@ public class GifAdapter extends RecyclerView.Adapter<GifAdapter.GifViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull GifAdapter.GifViewHolder holder, int position) {
-        String imageUrl = imageUrlList.get(position);
+        Gif gif = mGifs.get(position);
         Glide.with(context)
-                .load(imageUrl)
+                .load(gif.getGifUrl())
                 .into(holder.gifImageView);
+    }
+
+    public void setGifs(List<Gif> gifs) {
+        mGifs = gifs;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return imageUrlList.size();
+        if (mGifs != null) {
+            return mGifs.size();
+        } else return 0;
     }
 
     public class GifViewHolder extends RecyclerView.ViewHolder {

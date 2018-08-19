@@ -33,6 +33,8 @@ ext{
     retrofitVersion = "2.4.0"
     butterknifeVersion = "8.8.1"
     glideVersion = "4.6.1"
+    archRoomVersion = "1.1.1"
+    archLifecycleVersion = "1.1.1"
 }
 
 task clean(type: Delete) {
