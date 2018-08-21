@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 
 public class GifAdapter extends RecyclerView.Adapter<GifAdapter.GifViewHolder> {
     private Context context;
-    private List<String> mGifs;
+    private List<Gif> mGifs;
 
     public GifAdapter(Context context) {
         this.context = context;
@@ -32,16 +32,16 @@ public class GifAdapter extends RecyclerView.Adapter<GifAdapter.GifViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull GifAdapter.GifViewHolder holder, int position) {
-        String gif = mGifs.get(position);
+        Gif gif = mGifs.get(position);
         GlideApp.with(context)
-                .load(gif)
+                .load(gif.getGifUrl())
                 .placeholder(R.drawable.ic_gif_placeholder)
                 .error(R.drawable.ic_error)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(holder.gifImageView);
     }
 
-    public void setGifs(List<String> gifs) {
+    public void setGifs(List<Gif> gifs) {
         mGifs = gifs;
         notifyDataSetChanged();
     }

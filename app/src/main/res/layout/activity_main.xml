@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black">
@@ -31,41 +30,36 @@
 
         </android.support.v7.widget.Toolbar>
 
-        <android.support.v7.widget.SearchView
-            android:id="@+id/search_view"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:clickable="true"
-            android:focusable="true" />
+            android:orientation="horizontal">
 
-        <!--<EditText-->
-        <!--android:id="@+id/search_input"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?android:attr/actionBarSize"-->
-        <!--android:inputType="text"-->
-        <!--android:imeOptions="actionSearch"-->
-        <!--android:hint="@string/action_search"-->
-        <!--android:background="@android:color/white"-->
-        <!--android:textColor="@android:color/black"-->
-        <!--android:textColorHint="@android:color/darker_gray"-->
-        <!--android:padding="10dp"-->
-        <!--android:layout_toLeftOf="@id/search_icon"-->
-        <!--android:layout_toStartOf="@id/search_icon" />-->
+            <android.support.v7.widget.SearchView
+                android:id="@+id/search_view"
+                android:layout_width="0dp"
+                android:layout_weight="6"
+                android:layout_height="?android:attr/actionBarSize"
+                app:queryHint="@string/action_search"
+                app:queryBackground="@android:color/white"
+                app:iconifiedByDefault="false"
+                app:searchIcon="@null"
+                app:searchHintIcon="@null"
+                android:clickable="true"
+                android:focusable="true" />
 
-        <!--<ImageView-->
-        <!--android:id="@+id/search_icon"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="?android:attr/actionBarSize"-->
-        <!--android:background="@android:color/white"-->
-        <!--android:layout_alignParentEnd="true"-->
-        <!--android:layout_alignParentRight="true"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:src="@drawable/ic_search"-->
-        <!--android:padding="10dp"-->
-        <!--android:focusable="true"-->
-        <!--android:clickable="true"-->
-        <!--android:contentDescription="@string/action_search"/>-->
+            <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="0dp"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_weight="1"
+                android:background="@color/colorPurple"
+                android:clickable="true"
+                android:contentDescription="@string/action_search"
+                android:focusable="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_search" />
+        </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
 
@@ -78,14 +72,13 @@
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/no_results_view"
+        android:id="@+id/empty_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:drawablePadding="4dp"
-        android:drawableTop="@drawable/ic_error"
-        android:text="@string/no_gifs_found"
+        android:text="@string/no_intenet_connection"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -110,4 +103,5 @@
         android:layout_below="@id/search_results"
         android:clipToPadding="false"
         android:scrollbars="vertical" />
+
 </RelativeLayout>
