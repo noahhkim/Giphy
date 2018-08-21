@@ -1,4 +1,4 @@
-package com.example.android.giffinder.adapter;
+package com.example.android.giffinder;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.example.android.giffinder.R;
-import com.example.android.giffinder.data.room.Gif;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 
 import java.util.List;
 
@@ -18,8 +16,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class GifAdapter extends RecyclerView.Adapter<GifAdapter.GifViewHolder> {
-    private List<Gif> mGifs;
     private Context context;
+    private List<String> mGifs;
 
     public GifAdapter(Context context) {
         this.context = context;
@@ -34,13 +32,16 @@ public class GifAdapter extends RecyclerView.Adapter<GifAdapter.GifViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull GifAdapter.GifViewHolder holder, int position) {
-        Gif gif = mGifs.get(position);
-        Glide.with(context)
-                .load(gif.getGifUrl())
+        String gif = mGifs.get(position);
+        GlideApp.with(context)
+                .load(gif)
+                .placeholder(R.drawable.ic_gif_placeholder)
+                .error(R.drawable.ic_error)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(holder.gifImageView);
     }
 
-    public void setGifs(List<Gif> gifs) {
+    public void setGifs(List<String> gifs) {
         mGifs = gifs;
         notifyDataSetChanged();
     }
