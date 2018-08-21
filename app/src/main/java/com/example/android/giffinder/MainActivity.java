@@ -67,22 +67,22 @@ public class MainActivity extends AppCompatActivity {
         // Initialize the adapter
         mGifAdapter = new GifAdapter(this);
 
+        // Initialize recyclerview and gridlayoutmanager
         initRecyclerView();
 
-        EditText searchEditText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
-        searchEditText.setTextColor(Color.BLACK);
-        searchEditText.setHintTextColor(Color.LTGRAY);
+        // Customize searchview
+        customizeSearchView();
 
         // Set OnClickListener for search icon
         mSearchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                 Dismiss virtual keyboard
+                // Dismiss virtual keyboard
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 if (imm != null) {
                     imm.hideSoftInputFromWindow(mSearchIcon.getWindowToken(), 0);
                 }
-                String query = String.valueOf(searchView.getQuery()).trim();
+                String query = String.valueOf(searchView.getQuery());
                 setSearchResultsText(query);
                 getGifSearchResults(query);
             }
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setSearchResultsText(String query) {
-        String searchResult = getString(R.string.results_for) + query + "\"";
+        String searchResult = getString(R.string.results_for) + query.trim() + "\"";
         if (!query.isEmpty()) {
             searchResultsText.setText(searchResult);
         }
@@ -138,8 +138,9 @@ public class MainActivity extends AppCompatActivity {
                                     getFixedWidth().getGifUrl();
 
                             // Create new Gif object
-                            // Add gif to arraylist and notify change to adapter
                             Gif gif = new Gif(imageUrl);
+
+                            // Add gif to arraylist and notify change to adapter
                             mGifs.add(gif);
                             mGifAdapter.setGifs(mGifs);
 
@@ -200,5 +201,13 @@ public class MainActivity extends AppCompatActivity {
         } else {
             emptyView.setVisibility(View.GONE);
         }
+    }
+
+    private void customizeSearchView() {
+        EditText searchEditText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        searchEditText.setTextColor(Color.BLACK);
+        searchEditText.setHintTextColor(Color.LTGRAY);
+        ImageView searchClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
+        searchClose.setColorFilter(Color.LTGRAY);
     }
 }
