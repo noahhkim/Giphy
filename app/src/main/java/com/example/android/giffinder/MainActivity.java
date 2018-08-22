@@ -1,10 +1,13 @@
 package com.example.android.giffinder;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.android.giffinder.data.Gif;
+import com.example.android.giffinder.data.GifViewModel;
 import com.giphy.sdk.core.models.Media;
 import com.giphy.sdk.core.models.enums.MediaType;
 import com.giphy.sdk.core.network.api.CompletionHandler;
@@ -24,7 +29,6 @@ import com.giphy.sdk.core.network.api.GPHApi;
 import com.giphy.sdk.core.network.api.GPHApiClient;
 import com.giphy.sdk.core.network.response.ListMediaResponse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
     private GPHApi mClient;
     private GifAdapter mGifAdapter;
-    private List<Gif> mGifs = new ArrayList<>();
+    private GifViewModel mGifViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +72,17 @@ public class MainActivity extends AppCompatActivity {
         // Initialize the adapter
         mGifAdapter = new GifAdapter(this);
 
-        // Initialize recyclerview and gridlayoutmanager
+        // Set adapter and gridlayoutmanager to recyclerview
         initRecyclerView();
 
         // Customize searchview
         customizeSearchView();
+
+        // Get a new or existing ViewModel from the ViewModelProvider
+        mGifViewModel = ViewModelProviders.of(this).get(GifViewModel.class);
+
+        // Add an observer on the LiveData
+        observeGifViewModel(mGifViewModel);
 
         // Set OnClickListener for search icon
         mSearchIcon.setOnClickListener(new View.OnClickListener() {
@@ -113,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getGifSearchResults(String query) {
         // Clear recent list of gifs
-        mGifs.clear();
+        mGifViewModel.deleteAll();
 
         // Show progress bar
         emptyView.setVisibility(View.GONE);
@@ -133,16 +144,16 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     if (result.getData() != null && result.getData().size() > 0) {
                         for (Media media : result.getData()) {
-                            // Parse through results to retrieve gif url string
+                            // Parse through results to retrieve Gif url string
                             String imageUrl = media.getImages().
                                     getFixedWidth().getGifUrl();
 
-                            // Create new Gif object
-                            Gif gif = new Gif(imageUrl);
+                            // Create new Gif object and add imageUrl string
+                            Gif gif = new Gif();
+                            gif.setGifUrl(imageUrl);
 
-                            // Add gif to arraylist and notify change to adapter
-                            mGifs.add(gif);
-                            mGifAdapter.setGifs(mGifs);
+                            // Add Gif to ViewModel
+                            mGifViewModel.insert(gif);
 
                             // If there's results, show recyclerview
                             resultsRecyclerView.setVisibility(View.VISIBLE);
@@ -164,13 +175,6 @@ public class MainActivity extends AppCompatActivity {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         resultsRecyclerView.setLayoutManager(gridLayoutManager);
         resultsRecyclerView.setAdapter(mGifAdapter);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        // Clear recent list of gifs
-        mGifs.clear();
     }
 
     // Check network connectivity
@@ -203,11 +207,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        // Clear gif search results
+        mGifViewModel.deleteAll();
+        searchResultsText.setText("");
+    }
+
     private void customizeSearchView() {
         EditText searchEditText = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
         searchEditText.setTextColor(Color.BLACK);
         searchEditText.setHintTextColor(Color.LTGRAY);
         ImageView searchClose = searchView.findViewById(android.support.v7.appcompat.R.id.search_close_btn);
         searchClose.setColorFilter(Color.LTGRAY);
+    }
+
+    private void observeGifViewModel(GifViewModel gifViewModel) {
+        gifViewModel.getAllGifs().observe(this, new Observer<List<Gif>>() {
+            @Override
+            public void onChanged(@Nullable List<Gif> gifs) {
+                mGifAdapter.setGifs(gifs);
+            }
+        });
     }
 }

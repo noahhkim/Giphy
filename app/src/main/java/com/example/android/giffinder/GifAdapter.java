@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.example.android.giffinder.data.Gif;
 
 import java.util.List;
 
@@ -32,17 +33,17 @@ public class GifAdapter extends RecyclerView.Adapter<GifAdapter.GifViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull GifAdapter.GifViewHolder holder, int position) {
-        Gif gif = mGifs.get(position);
+        Gif Gif = mGifs.get(position);
         GlideApp.with(context)
-                .load(gif.getGifUrl())
+                .load(Gif.getGifUrl())
                 .placeholder(R.drawable.ic_gif_placeholder)
                 .error(R.drawable.ic_error)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(holder.gifImageView);
     }
 
-    public void setGifs(List<Gif> gifs) {
-        mGifs = gifs;
+    public void setGifs(List<Gif> Gifs) {
+        mGifs = Gifs;
         notifyDataSetChanged();
     }
 
